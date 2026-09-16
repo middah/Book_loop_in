@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookLoop | Academic Book Rental</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:#f7f7f5;color:#222}
+button{padding:12px 24px;border:none;border-radius:25px;cursor:pointer;font-weight:bold}
+button:hover{opacity:.85}
+.purple-btn{background:#7357ff;color:white}
+.black-btn{background:#222;color:white}
+.white-btn{background:white;color:#222;border:1px solid #888}
+
+header{
+background:white;
+padding:18px 7%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #ddd;
+position:sticky;
+top:0;
+z-index:100
+}
+
+.logo{font-size:26px;font-weight:bold}
+.logo span{color:#7357ff}
+
+nav a{
+text-decoration:none;
+color:#333;
+margin-left:25px;
+font-size:15px
+}
+
+nav a:hover{color:#7357ff}
+
+.hero{
+padding:80px 7%;
+text-align:center;
+background:#eeeaff
+}
+
+.hero h1{
+font-size:44px;
+margin-bottom:15px
+}
+
+.hero h1 span{color:#7357ff}
+
+.hero p{
+font-size:18px;
+color:#555;
+margin-bottom:30px
+}
+
+.search-box{
+width:70%;
+max-width:700px;
+padding:17px 22px;
+border:none;
+border-radius:30px;
+font-size:15px;
+box-shadow:0 4px 15px #ccc;
+outline:none
+}
+
+.hero-buttons{margin-top:25px}
+
+section{padding:60px 7%}
+
+.section-title{
+text-align:center;
+margin-bottom:35px
+}
+
+.section-title h2{
+font-size:30px;
+margin-bottom:8px
+}
+
+.section-title p{color:#777}
+
+.categories{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px
+}
+
+.category{
+background:white;
+padding:30px 20px;
+text-align:center;
+border-radius:16px;
+box-shadow:0 3px 15px #ddd;
+transition:.3s
+}
+
+.category:hover{transform:translateY(-5px)}
+
+.category-icon{
+font-size:38px;
+margin-bottom:12px
+}
+
+.category h3{margin-bottom:7px}
+
+.category p{
+color:#777;
+font-size:14px
+}
+
+.books{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px
+}
+
+.book-card{
+background:white;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 4px 15px #ddd
+}
+
+.book-cover{
+height:240px;
+background:#eee;
+display:flex;
+justify-content:center;
+align-items:center
+}
+
+.book-cover img{
+width:100%;
+height:100%;
+object-fit:contain
+}
+
+.book-info{padding:18px}
+
+.book-info h3{
+font-size:17px;
+margin-bottom:8px
+}
+
+.book-info p{
+font-size:13px;
+color:#777;
+margin-bottom:6px
+}
+
+.condition{
+display:inline-block;
+background:#eee;
+padding:5px 10px;
+border-radius:15px;
+font-size:12px;
+margin-top:5px
+}
+
+.rent-price{
+color:#7357ff;
+font-size:20px;
+font-weight:bold;
+margin-top:12px
+}
+
+.owner{
+margin-top:10px;
+font-size:13px
+}
+
+.commission-small{
+font-size:12px;
+color:#888;
+margin-top:7px
+}
+
+.earning{
+font-size:13px;
+margin-top:5px;
+color:#333
+}
+
+.book-buttons{margin-top:12px}
+
+.book-buttons button{width:100%}
+
+.rent-section{background:white}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px
+}
+
+.step{
+background:#f7f7f5;
+padding:30px 20px;
+text-align:center;
+border-radius:16px
+}
+
+.step-number{
+width:45px;
+height:45px;
+background:#7357ff;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 15px;
+font-weight:bold
+}
+
+.step p{
+color:#777;
+margin-top:8px;
+line-height:1.5
+}
+
+.commission-section{
+background:#222;
+color:white
+}
+
+.commission-box{
+max-width:850px;
+margin:auto;
+text-align:center
+}
+
+.commission-box h2{
+font-size:30px;
+margin-bottom:15px
+}
+
+.commission-box>p{
+color:#ccc;
+line-height:1.6;
+margin-bottom:30px
+}
+
+.commission-cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px
+}
+
+.commission-card{
+background:white;
+color:#222;
+padding:25px;
+border-radius:15px
+}
+
+.commission-card h3{margin-bottom:10px}
+
+.commission-card p{
+color:#666;
+line-height:1.5
+}
+
+.highlight{
+color:#7357ff;
+font-size:25px;
+font-weight:bold
+}
+
+.example{background:#eeeaff}
+
+.example-box{
+max-width:700px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 4px 15px #ddd
+}
+
+.example-row{
+display:flex;
+justify-content:space-between;
+padding:13px 0;
+border-bottom:1px solid #eee
+}
+
+.example-row:last-child{border-bottom:none}
+
+.total{
+font-weight:bold;
+font-size:18px
+}
+
+.free-listing{background:#f7f7f5}
+
+.free-box{
+max-width:800px;
+margin:auto;
+background:white;
+padding:40px;
+border-radius:18px;
+text-align:center;
+box-shadow:0 4px 20px #ddd
+}
+
+.free-badge{
+display:inline-block;
+background:#7357ff;
+color:white;
+padding:8px 18px;
+border-radius:20px;
+margin-bottom:20px;
+font-weight:bold
+}
+
+.free-box h2{margin-bottom:12px}
+
+.free-box p{
+color:#666;
+line-height:1.6;
+margin-bottom:10px
+}
+
+.free-box strong{color:#7357ff}
+
+.form-container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:35px;
+border-radius:18px;
+box-shadow:0 4px 20px #ddd
+}
+
+.form-group{margin-bottom:18px}
+
+.form-group label{
+display:block;
+margin-bottom:7px;
+font-weight:bold;
+font-size:14px
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+width:100%;
+padding:13px;
+border:1px solid #ccc;
+border-radius:8px;
+outline:none
+}
+
+.form-group textarea{
+min-height:100px;
+resize:vertical
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+
+.commission-note{
+background:#eeeaff;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+font-size:14px;
+line-height:1.5
+}
+
+.submit-btn{
+width:100%;
+background:#7357ff;
+color:white;
+font-size:15px
+}
+
+.payment{background:white}
+
+.payment-box{
+max-width:600px;
+margin:auto;
+background:#f7f7f5;
+padding:35px;
+border-radius:18px;
+text-align:center
+}
+
+.qr-code{
+width:180px;
+height:180px;
+background:#ddd;
+margin:20px auto;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.qr-code img{
+width:100%;
+height:100%
+}
+
+.upi{
+font-weight:bold;
+margin-top:15px
+}
+
+footer{
+background:#222;
+color:white;
+padding:35px;
+text-align:center
+}
+
+footer p{
+color:#ccc;
+font-size:14px;
+margin-top:8px
+}
+
+@media(max-width:900px){
+.categories,.books{
+grid-template-columns:repeat(2,1fr)
+}
+
+.steps{
+grid-template-columns:repeat(2,1fr)
+}
+
+.commission-cards{
+grid-template-columns:1fr
+}
+
+nav{display:none}
+}
+
+@media(max-width:550px){
+.categories,.books,.steps,.form-row{
+grid-template-columns:1fr
+}
+
+.hero h1{font-size:34px}
+
+.search-box{width:95%}
+
+.example-row{font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">Book<span>Loop</span> 📚</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#books">Rent Books</a>
+<a href="#how">How It Works</a>
+<a href="#commission">For Book Owners</a>
+<a href="#list">List Your Book</a>
+<a href="#payment">Payment</a>
+</nav>
+</header>
+
+<div class="hero" id="home">
+
+<h1>Rent Your <span>Academic Books.</span></h1>
+
+<p>
+Affordable books for every student.
+Rent, read and return.
+</p>
+
+<input
+class="search-box"
+id="searchBox"
+type="search"
+placeholder="Search by course, semester, subject or book name..."
+>
+
+<div class="hero-buttons">
+
+<a href="#books">
+<button class="purple-btn">
+📚 Browse Books
+</button>
+</a>
+
+<a href="#list">
+<button class="white-btn">
+📖 List Your Book FREE
+</button>
+</a>
+
+</div>
+</div>
+
+<section>
+
+<div class="section-title">
+<h2>Browse by Course</h2>
+<p>Find academic books for your course</p>
+</div>
+
+<div class="categories">
+
+<div class="category">
+<div class="category-icon">💼</div>
+<h3>B.Com</h3>
+<p>Commerce & Management</p>
+</div>
+
+<div class="category">
+<div class="category-icon">🧠</div>
+<h3>Psychology</h3>
+<p>Psychology & Behaviour</p>
+</div>
+
+<div class="category">
+<div class="category-icon">📖</div>
+<h3>English</h3>
+<p>Language & Literature</p>
+</div>
+
+<div class="category">
+<div class="category-icon">🎓</div>
+<h3>Other Courses</h3>
+<p>Explore academic books</p>
+</div>
+
+</div>
+</section>
+
+<section id="books">
+
+<div class="section-title">
+<h2>Available Books for Rent</h2>
+<p>Rent a book only for the time you need it.</p>
+</div>
+
+<div class="books" id="bookGrid">
+
+<div class="book-card"
+data-search="fundamentals financial accounting bcom semester 2 calicut university">
+
+<div class="book-cover">
+
+<img
+src="images/bcom-book.jpg"
+alt="B.Com Academic Book"
+onerror="this.style.display='none';
+this.parentElement.innerHTML='<div>📚<br>Book Cover</div>'"
+>
+
+</div>
+
+<div class="book-info">
+
+<h3>Fundamentals of Financial Accounting</h3>
+
+<p>💼 B.Com • Semester 2</p>
+
+<p>📚 Calicut University</p>
+
+<span class="condition">
+Good Condition
+</span>
+
+<div class="rent-price">
+₹30 / week
+</div>
+
+<div class="owner">
+👤 Book Owner:
+<strong>Fathima K.</strong>
+</div>
+
+<div class="commission-small">
+BookLoop commission: 10%
+</div>
+
+<div class="earning">
+Owner receives:
+<strong>₹27 / week</strong>
+</div>
+
+<div class="book-buttons">
+
+<button
+class="purple-btn"
+onclick="rentBook('Fundamentals of Financial Accounting',30)"
+>
+🔄 Rent Now
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="book-card"
+data-search="business regulations bcom semester 3 calicut university">
+
+<div class="book-cover">
+
+<img
+src="images/business-regulations.jpg"
+alt="Business Regulations"
+onerror="this.style.display='none';
+this.parentElement.innerHTML='<div>📚<br>Book Cover</div>'"
+>
+
+</div>
+
+<div class="book-info">
+
+<h3>Business Regulations</h3>
+
+<p>💼 B.Com • Semester 3</p>
+
+<p>📚 Calicut University</p>
+
+<span class="condition">
+Very Good
+</span>
+
+<div class="rent-price">
+₹25 / week
+</div>
+
+<div class="owner">
+👤 Book Owner:
+<strong>Shahana P.</strong>
+</div>
+
+<div class="commission-small">
+BookLoop commission: 10%
+</div>
+
+<div class="earning">
+Owner receives:
+<strong>₹22.50 / week</strong>
+</div>
+
+<div class="book-buttons">
+
+<button
+class="purple-btn"
+onclick="rentBook('Business Regulations',25)"
+>
+🔄 Rent Now
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="book-card"
+data-search="basic psychology psychology semester 1 calicut university">
+
+<div class="book-cover">
+
+<img
+src="images/psychology-book.jpg"
+alt="Psychology Academic Book"
+onerror="this.style.display='none';
+this.parentElement.innerHTML='<div>📚<br>Book Cover</div>'"
+>
+
+</div>
+
+<div class="book-info">
+
+<h3>Basic Psychology</h3>
+
+<p>🧠 Psychology • Semester 1</p>
+
+<p>📚 Calicut University</p>
+
+<span class="condition">
+Good Condition
+</span>
+
+<div class="rent-price">
+₹35 / week
+</div>
+
+<div class="owner">
+👤 Book Owner:
+<strong>Amal S.</strong>
+</div>
+
+<div class="commission-small">
+BookLoop commission: 10%
+</div>
+
+<div class="earning">
+Owner receives:
+<strong>₹31.50 / week</strong>
+</div>
+
+<div class="book-buttons">
+
+<button
+class="purple-btn"
+onclick="rentBook('Basic Psychology',35)"
+>
+🔄 Rent Now
+</button>
+
+</div>
+</div>
+</div>
+
+
+<div class="book-card"
+data-search="english language skills english semester 1 calicut university">
+
+<div class="book-cover">
+
+<img
+src="images/english-book.jpg"
+alt="English Academic Book"
+onerror="this.style.display='none';
+this.parentElement.innerHTML='<div>📚<br>Book Cover</div>'"
+>
+
+</div>
+
+<div class="book-info">
+
+<h3>English Language Skills</h3>
+
+<p>📖 English • Semester 1</p>
+
+<p>📚 Calicut University</p>
+
+<span class="condition">
+Like New
+</span>
+
+<div class="rent-price">
+₹20 / week
+</div>
+
+<div class="owner">
+👤 Book Owner:
+<strong>Hiba M.</strong>
+</div>
+
+<div class="commission-small">
+BookLoop commission: 10%
+</div>
+
+<div class="earning">
+Owner receives:
+<strong>₹18 / week</strong>
+</div>
+
+<div class="book-buttons">
+
+<button
+class="purple-btn"
+onclick="rentBook('English Language Skills',20)"
+>
+🔄 Rent Now
+</button>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<p
+id="noResults"
+style="display:none;text-align:center;margin-top:25px;color:#777;"
+>
+No matching books found.
+</p>
+
+</section>
+
+
+<section class="rent-section" id="how">
+
+<div class="section-title">
+<h2>How BookLoop Works</h2>
+<p>Simple rental process for students</p>
+</div>
+
+<div class="steps">
+
+<div class="step">
+<div class="step-number">1</div>
+<h3>Search</h3>
+<p>
+Find your book by course, semester or subject.
+</p>
+</div>
+
+<div class="step">
+<div class="step-number">2</div>
+<h3>Choose</h3>
+<p>
+Check the book condition, owner and rental price.
+</p>
+</div>
+
+<div class="step">
+<div class="step-number">3</div>
+<h3>Rent</h3>
+<p>
+Pay the rental fee and receive the book.
+</p>
+</div>
+
+<div class="step">
+<div class="step-number">4</div>
+<h3>Return</h3>
+<p>
+Return the book after your rental period.
+</p>
+</div>
+
+</div>
+</section>
+
+
+<section class="commission-section" id="commission">
+
+<div class="commission-box">
+
+<h2>💰 How BookLoop Makes Money</h2>
+
+<p>
+Book owners can list their academic books on BookLoop
+<strong>completely FREE</strong>.
+BookLoop earns a small commission only when the book
+is successfully rented.
+</p>
+
+<div class="commission-cards">
+
+<div class="commission-card">
+
+<h3>📚 Listing</h3>
+
+<div class="highlight">
+₹0
+</div>
+
+<p>
+No fee to list your academic book on BookLoop.
+</p>
+
+</div>
+
+
+<div class="commission-card">
+
+<h3>💜 Platform Commission</h3>
+
+<div class="highlight">
+10%
+</div>
+
+<p>
+BookLoop keeps 10% of the successful rental fee.
+</p>
+
+</div>
+
+
+<div class="commission-card">
+
+<h3>💰 Owner Earnings</h3>
+
+<div class="highlight">
+90%
+</div>
+
+<p>
+The book owner receives the remaining 90%
+of the rental fee.
+</p>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section class="example">
+
+<div class="section-title">
+
+<h2>Simple Commission Example</h2>
+
+<p>
+See how the rental payment is divided.
+</p>
+
+</div>
+
+<div class="example-box">
+
+<div class="example-row">
+<span>Student Rental Fee</span>
+<strong>₹100</strong>
+</div>
+
+<div class="example-row">
+<span>BookLoop Commission (10%)</span>
+<strong>₹10</strong>
+</div>
+
+<div class="example-row total">
+<span>Book Owner Receives</span>
+<strong>₹90</strong>
+</div>
+
+</div>
+</section>
+
+
+<section class="free-listing">
+
+<div class="free-box">
+
+<div class="free-badge">
+FREE TO LIST
+</div>
+
+<h2>Have an Academic Book?</h2>
+
+<p>
+Don't let your old books sit unused.
+List them on BookLoop and let another student use them.
+</p>
+
+<p>
+<strong>Listing is completely FREE.</strong>
+</p>
+
+<p>
+BookLoop takes only a small
+<strong>10% commission</strong>
+when your book is successfully rented.
+</p>
+
+<br>
+
+<a href="#list">
+
+<button class="purple-btn">
+📚 List My Book for FREE
+</button>
+
+</a>
+
+</div>
+</section>
+
+
+<section id="list">
+
+<div class="section-title">
+
+<h2>List Your Book for FREE</h2>
+
+<p>
+Earn from your unused academic books.
+</p>
+
+</div>
+
+<div class="form-container">
+
+<div class="commission-note">
+
+<strong>💡 How it works:</strong>
+<br>
+
+Listing your book is <strong>FREE</strong>.
+BookLoop takes only <strong>10%</strong>
+of the rental fee when your book is successfully rented.
+
+You receive the remaining <strong>90%</strong>.
+
+</div>
+
+
+<form onsubmit="submitBook(event)">
+
+<div class="form-group">
+
+<label>Book Name</label>
+
+<input
+type="text"
+placeholder="Enter book name"
+required
+>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Course</label>
+
+<select required>
+
+<option value="">
+Select Course
+</option>
+
+<option>B.Com</option>
+<option>Psychology</option>
+<option>English</option>
+<option>BBA</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Semester</label>
+
+<select required>
+
+<option value="">
+Select Semester
+</option>
+
+<option>Semester 1</option>
+<option>Semester 2</option>
+<option>Semester 3</option>
+<option>Semester 4</option>
+<option>Semester 5</option>
+<option>Semester 6</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Subject</label>
+
+<input
+type="text"
+placeholder="Example: Business Regulations"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Rental Price / Week (₹)
+</label>
+
+<input
+type="number"
+id="rentalPrice"
+placeholder="Example: 100"
+oninput="calculateEarning()"
+required
+>
+
+</div>
+
+
+<div
+class="commission-note"
+id="earningPreview"
+>
+💰 Enter a rental price to see your estimated earnings.
+</div>
+
+
+<div class="form-group">
+
+<label>
+Security Deposit (₹)
+</label>
+
+<input
+type="number"
+placeholder="Example: 200"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Book Condition
+</label>
+
+<select required>
+
+<option value="">
+Select Condition
+</option>
+
+<option>Like New</option>
+<option>Very Good</option>
+<option>Good</option>
+<option>Used</option>
+<option>Heavily Used</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Upload Book Cover
+</label>
+
+<input
+type="file"
+accept="image/*"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Book Owner Name
+</label>
+
+<input
+type="text"
+placeholder="Your name"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Contact Number
+</label>
+
+<input
+type="tel"
+placeholder="Your phone number"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Additional Details
+</label>
+
+<textarea
+placeholder="Mention notes, highlighting, marks or other details about the book..."
+></textarea>
+
+</div>
+
+
+<button
+type="submit"
+class="submit-btn"
+>
+📚 List My Book — FREE
+</button>
+
+</form>
+
+</div>
+</section>
+
+
+<section class="payment" id="payment">
+
+<div class="section-title">
+
+<h2>💳 Rental Payment</h2>
+
+<p>
+Pay the rental amount securely.
+</p>
+
+</div>
+
+
+<div class="payment-box">
+
+<h3>📱 Scan & Pay</h3>
+
+<div class="qr-code">
+
+<img
+src="images/payment-qr.png"
+alt="UPI Payment QR Code"
+onerror="this.style.display='none';
+this.parentElement.innerHTML='<div>QR CODE</div>'"
+>
+
+</div>
+
+<p>
+Scan using any UPI application.
+</p>
+
+<p class="upi">
+UPI ID: bookloop@upi
+</p>
+
+<button
+class="purple-btn"
+onclick="paymentDone()"
+>
+✓ Payment Done
+</button>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<h3>
+BookLoop 📚
+</h3>
+
+<p>
+Rent • Read • Return
+</p>
+
+<p>
+Affordable academic books for students.
+</p>
+
+<br>
+
+<p>
+© 2026 BookLoop
+</p>
+
+</footer>
+
+
+<script>
+
+function rentBook(bookName,price){
+
+alert(
+"🔄 Rental Selected!\n\n" +
+"Book: " + bookName +
+"\nRental Fee: ₹" + price +
+" / week\n\n" +
+"BookLoop commission is paid by the book owner."
+);
+
+document
+.getElementById("payment")
+.scrollIntoView();
+
+}
+
+
+function calculateEarning(){
+
+let price =
+parseFloat(
+document.getElementById("rentalPrice").value
+);
+
+let preview =
+document.getElementById("earningPreview");
+
+if(!price){
+
+preview.innerHTML =
+"💰 Enter a rental price to see your estimated earnings.";
+
+return;
+
+}
+
+let commission =
+price * 0.10;
+
+let earning =
+price - commission;
+
+preview.innerHTML =
+"Rental Fee: <strong>₹" +
+price +
+"</strong><br>" +
+
+"BookLoop Commission (10%): <strong>₹" +
+commission.toFixed(2) +
+"</strong><br>" +
+
+"Your Estimated Earnings (90%): <strong>₹" +
+earning.toFixed(2) +
+"</strong>";
+
+}
+
+
+function submitBook(event){
+
+event.preventDefault();
+
+alert(
+"✅ Book Listed Successfully!\n\n" +
+
+"Listing Fee: ₹0 — FREE\n" +
+
+"BookLoop Commission: 10% only when rented.\n" +
+
+"Owner receives: 90% of the rental fee."
+);
+
+event.target.reset();
+
+document
+.getElementById("earningPreview")
+.innerHTML =
+"💰 Enter a rental price to see your estimated earnings.";
+
+}
+
+
+function paymentDone(){
+
+alert(
+"✅ Payment confirmation received!\n\n" +
+"Thank you for using BookLoop 📚"
+);
+
+}
+
+
+document
+.getElementById("searchBox")
+.addEventListener("input",function(){
+
+const q =
+this.value.toLowerCase().trim();
+
+const cards =
+document.querySelectorAll(".book-card");
+
+let visible = 0;
+
+cards.forEach(card => {
+
+const match =
+card.dataset.search.includes(q);
+
+card.style.display =
+match ? "" : "none";
+
+if(match) visible++;
+
+});
+
+document
+.getElementById("noResults")
+.style.display =
+visible ? "none" : "block";
+
+});
+
+</script>
+
+</body>
+  </html>
